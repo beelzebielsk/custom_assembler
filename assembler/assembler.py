@@ -171,6 +171,11 @@ instructionParseMap = {
     # '010' : ["register" , "register"]        ,
     # '011' : ["register" , "register"]        ,
 
+
+####################################################
+# }}}
+####################################################
+
 # Returns an encoded instruction to place into memory.
 # Not all instructions are of the same length, so some
 # instructions will take more than one data word
@@ -228,7 +233,3 @@ def parseInstruction( line ):
 
         words.append(data_word);
     return words;
-
-####################################################
-# }}}
-####################################################

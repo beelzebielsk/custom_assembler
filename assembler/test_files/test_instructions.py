@@ -2,7 +2,8 @@
 ## PREAMBLE: {{{
 ##################################################
 
-import custom_assembler
+import assembler;
+#from . import parseInstruction;
 
 ##################################################
 ## }}}
@@ -31,3 +32,9 @@ import custom_assembler
 #
 ## instruction: 0000 0 {opcode} {register_x_bin_string, 3} {register_y_bin_string, 3}
 #
+
+print dir(assembler);
+if __name__ == '__main__':
+    print "I'm main.";
+else:
+    print "I'm not main, but I'm", __name__ + ".";
