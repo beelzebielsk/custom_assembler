@@ -72,7 +72,7 @@ memory = [];
 # create.
 whitespace = re.compile('\s+');
 
-# Regular expression for extracting an instruction
+# Regular expression for extracting just the instruction from an assembler line.
 extractInstruction = re.compile('^\s*(\w+)', re.IGNORECASE);
 
 ####################################################
@@ -123,6 +123,8 @@ def parseRegister( match_string):
     else:
         return reg_num;
 
+# lambda expression syntax:
+# lambda [argument [,argument]*]: {statement}
 tokenParse = {
     'register' : 
         parseRegister,
@@ -185,7 +187,8 @@ def parseInstruction( line ):
 
     # Create argument list.
     argumentListStart = match.end(1);
-    argumentList = map( lambda s: s.strip(), example[argumentListStart:].split(',') )
+    #argumentList = map( lambda s: s.strip(), example[argumentListStart:].split(',') )
+    argumentList = map( lambda s: s.strip(), line[argumentListStart:].split(',') )
 
     # Keep track of current argument to examine.
     currentArgument = 0;
@@ -227,45 +230,5 @@ def parseInstruction( line ):
     return words;
 
 ####################################################
-## }}}
+# }}}
 ####################################################
-
-examples = [ 
-    '    mv $0, $1', 'mv       $2,   $3', # Can we strip the whitespace?
-    ' mvI $4, 0x1', 
-    #'mvi $0, 0x12345', # Can we detect literals that are too large?
-    'add $0, $1',
-    #'add        $7, $9', # Can we detect out of range register names?
-    #'sub $0, $10',
-    'sub $5, $2',
-    'mvi $0, 0x000F',
-    'mvi $0, 15',
-    'mvi $0, b1111',
-    'mvi $2, 0x0002',
-    'add $1, $0',
-    'sub $1, $2',
-    #'add $d, $2',
-];
-
-print "original examples:"
-for example in examples:
-    print example
-
-print "With whitespace condensed:"
-for example in examples:
-    print whitespace.sub(' ', example);
-
-print "examples are unchanged after strip:"
-for example in examples:
-    print example
-
-print "Instructions on each line:"
-for example in examples:
-    print extractInstruction.match(example).group(1).lower();
-
-print "Parsing instructions:"
-for example in examples:
-    print example;
-    print parseInstruction(example);
-
-# instruction: 0000 0 {opcode} {register_x_bin_string, 3} {register_y_bin_string, 3}

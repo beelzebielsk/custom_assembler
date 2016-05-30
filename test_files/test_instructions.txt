@@ -1,0 +1,15 @@
+    mv $0, $1
+mv       $2,   $3
+ mvI $4, 0x1
+mvi $0, 0x12345
+add $0, $1
+add        $7, $9
+sub $0, $10
+sub $5, $2
+mvi $0, 0x000F
+mvi $0, 15
+mvi $0, b1111
+mvi $2, 0x0002
+add $1, $0
+sub $1, $2
+add $d, $2
